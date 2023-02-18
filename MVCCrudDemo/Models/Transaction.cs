@@ -21,6 +21,7 @@ namespace MVCCrudDemo.Models
         [DisplayName("Bank name")]
         public string BankName { get; set; }
         public int Amount { get; set; }
+        [DisplayFormat(DataFormatString = "{0:dd-MMM-yy}")]
         public DateTime Date { get; set; }
     }
 }
