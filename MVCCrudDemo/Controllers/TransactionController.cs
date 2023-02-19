@@ -65,7 +65,7 @@ namespace MVCCrudDemo.Controllers
             {
                 if (transaction.AccountOwner == "Richard")
                 {
-                    transaction.Amount = transaction.Amount * 2;
+                    transaction.Amount *= 2;
                 }
 
                 _context.Add(transaction);
