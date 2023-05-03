@@ -21,8 +21,12 @@ namespace MVCCrudDemo.Controllers
         // GET: Transaction
         public async Task<IActionResult> Index()
         {
-              return _context.Transactions != null ? 
-                          View(await _context.Transactions.ToListAsync()) :
+            ViewData["TotalTransactions"] = _context.Transactions.Count();
+            
+            return _context.Transactions != null ? 
+                          View(await _context.Transactions
+                          .OrderBy(t=>t.AccountOwner)
+                          .ToListAsync()) :
                           Problem("Entity set 'ApplicationDbContext.Transactions'  is null.");
         }
 
@@ -59,6 +63,11 @@ namespace MVCCrudDemo.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (transaction.AccountOwner == "Richard")
+                {
+                    transaction.Amount *= 2;
+                }
+
                 _context.Add(transaction);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
